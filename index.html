@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="jquery.js"></script>
+  </head>
+  <script>
+    $(function(){
+
+    $.getJSON('USCities.json',function(data){
+
+    var mySelectCities;
+
+    $.each(data,function(i,v){
+        mySelectCities+='<option value='+i+'>'+v.city+'</option>';
+
+
+
+    })
+
+    $('#cities').html(mySelectCities);
+
+
+    })
+
+    $('#cities').change(function(){
+        var selectedCity = $(this).children("option:selected").val();
+        console.log(selectedCity);
+        $.getJSON('USCities.json',function(data){
+        $.each(data,function(i2,v2){
+            if (i2==selectedCity) {
+                $('#zipCode').val(v2.zip_code);
+                $('#state').val(v2.state);
+            //    console.log(v2.zip_code);
+
+            }
+
+    })
+
+
+})
+})
+})
+  </script>
+  <body>
+    <select id="cities" > </select>
+
+    zipCode: <input type="text" name="" id="zipCode" />
+    state: <input type="text" name="" id="state" />
+  
+  </body>
+</html>
